@@ -1,0 +1,252 @@
+<style>
+    .pelc-with-without-order .search-scroll{
+        padding-bottom: 100px;
+    }
+</style>
+
+<div class="pelc-order">
+    <div class="search-butons" style="margin: 0;">
+        <a data-i18n="ok" class="dependency-student-submit"  operation-type="edit" data-role-id="1000020">Təsdiq Et</a>
+        <a href="" data-i18n="close" class="close-pelc-order" placeholder="Bağla">Bağla</a>
+    </div>
+
+    <div class="row">
+        <div class="">
+            <div class="row no-margin panel-heading">
+                <h3 class="panel-title"><span data-i18n="students" placeholder="Tələbələr">Tələbələr</span>: <span data-student-count="">0</span> </h3>
+            </div>
+
+            <div class="  panel-body ss">
+                <div class="three-tabs panel-title">
+                    <ul class="nav  ">
+                        <li  class="col-sm-6 active" style="padding-left: 0 !important">
+                            <a data-toggle="tab" href="#tab1"  class=" first-tab">
+                                <span data-i18n="personal_info" class="panel-body" >Bərkidilməmiş</span>
+                            </a>
+                        </li>
+                        <li class="col-sm-6" style="padding-right: 0 !important">
+                            <a data-toggle="tab" href="#tab2" class=" second-tab">
+                                <span data-i18n="academic_info" class="panel-body" >Bərkidilmiş</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <div class="tab-content col-md-12">
+                    <div id ="tab1" class="tab-pane fade in active">
+                        <form id="without_diplom" action="" class="students-without-order-filter ">
+                            <div class="btn-group">
+                                <select  class="form-control " id="grad_order" >
+
+                                </select>
+                            </div>
+
+                            <div class="btn-group " >
+                                <input name ="keyword" type="text" class="form-control new-search" id="search_without_diplom" >
+                                <img style='position: absolute; top:9px; left:9px'  src="/AdministrationSystem/assets/img/upd/grey-search.svg" alt="">
+                            </div>
+                        </form>
+
+
+
+                        <table id="graduate-student-list" class="table table-celled table-hover mini">
+                            <thead>
+                                <tr>
+                                    <th>№</th>
+                                    <th data-i18n="table.orgName" placeholder="Strukturun adı">Strukturun adı</th>
+                                    <th>S.A.A</th>
+                                    <th> <input class="all-check-student" type="checkbox"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div class="space-for-footer">
+                            <div id="load_more_div" class=" flex-input" style="margin-top: 8px;">
+                                <button data-i18n="load.more" data-table="students-without-diplom" class="btn loading-margins btn-load-more" placeholder="Daha çox">Daha çox</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div id="tab2" class="tab-pane fade">
+                        <form id="with_order_filter" action="" class="students-without-order-filter">
+                            <div class="btn-group">
+                                <select class="form-control " id="grad_order_with" >
+                                </select>
+                            </div>
+
+                            <div class="btn-group " >
+                                <input type="text" class="form-control new-search" id="search_with_diplom" >
+                                <img style='position: absolute; top:9px; left:9px' src="/AdministrationSystem/assets/img/upd/grey-search.svg" alt="">
+                            </div>
+                        </form>
+
+                            <table id="students_with_diplom" class="table table-celled table-hover mini">
+                                <thead>
+                                    <tr>
+                                <thead>
+                                    <tr>
+                                        <th>№</th>
+                                        <th data-i18n="table.orgName" placeholder="Strukturun adı">Strukturun adı</th>
+                                        <th>S.A.A</th>
+                                        <th>Diplom seriya ve nomresi</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <div class="space-for-footer">
+                                <div id="load_more_div" class=" flex-input" style="margin-top: 8px;">
+                                    <button data-i18n="load.more" data-table="students-with-diplom" class="btn loading-margins btn-load-more" placeholder="Daha çox">Daha çox</button>
+                                </div>
+                            </div>
+              
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+
+        $('body').on('click', '.close-pelc-order', function () {
+            $('body').find('.pelc-with-without-order').css('right', '-100%');
+
+        });
+
+        $('body').find('.search-scroll').slimScroll();
+
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var count = $(e.target).attr("data-count") // activated tab
+            $('[data-student-count]').html(count);
+        });
+
+        $('#main-div').on('change', '#grad_order', function () {
+            var orderId = $(this).val();
+            var eduLevel = $('#graduate-student-list').attr('data-level');
+            var obj = {orderId: orderId, eduLevel: eduLevel};
+            Hsis.Proxy.getStudentListByOrderId(obj, function (students) {
+                Hsis.Service.parseStudentsWithoutDiplom(students);
+                $('.btn-load-more').removeAttr('data-page');
+
+            });
+        });
+
+        $('#main-div').on('change', '#grad_order_with', function () {
+            var orderId = $(this).val();
+            var eduLevel = $('#graduate-student-list').attr('data-level');
+            var keyword = $('#search_with_diplom').val();
+            var form = {
+                serial: $('#main-div #graduate-student-list').attr("data-serial"),
+                orgId: $('#main-div #graduate-student-list').attr("data-org"),
+                graduateDateId: $('#main-div #graduate-student-list').attr("data-year-id"),
+                typeId: $('#main-div #graduate-student-list').attr("data-type"),
+                eduLevelId: $('#main-div #graduate-student-list').attr("data-level"),
+                orderId: orderId,
+                keyword: keyword
+            };
+            Hsis.Proxy.getStudentsDiplomListByDiplomParams(form, function (data) {
+                Hsis.Service.parseStudentsWithDiplom(data);
+                $('.btn-load-more').removeAttr('data-page');
+            });
+        });
+
+        $('body').on('keypress', '#search_without_diplom', function (e) {
+            try {
+
+                if (e.keyCode == 13) {
+                    var keyword = $('#search_without_diplom').val();
+                    var orderId = $('#grad_order').val();
+                    var eduLevel = $('#graduate-student-list').attr('data-level');
+                    e.preventDefault();
+                    var form = {
+                        orderId: orderId,
+                        eduLevel: eduLevel,
+                        keyword: '',
+                    };
+
+                    if (keyword.trim().length > 2) {
+                        $('.btn-load-more').removeAttr('data-page');
+                        form.keyword = keyword;
+
+
+                        Hsis.Proxy.getStudentListByOrderId(form, function (students) {
+                            Hsis.Service.parseStudentsWithoutDiplom(students);
+
+                        });
+
+                    } else if (keyword.trim().length == 0) {
+                        $('.btn-load-more').removeAttr('data-page');
+                        $('#search_without_diplom').val('');
+                        form.keyword = '';
+                        Hsis.Proxy.getStudentListByOrderId(form, function (students) {
+                            Hsis.Service.parseStudentsWithoutDiplom(students);
+
+                        });
+                    }
+                }
+
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+        $('body').on('keypress', '#search_with_diplom', function (e) {
+            try {
+
+                if (e.keyCode == 13) {
+                    var keyword = $('#search_with_diplom').val();
+                    var orderId = $('#grad_order_with').val();
+                    var eduLevel = $('#graduate-student-list').attr('data-level');
+                    e.preventDefault();
+                    var form = {
+                        serial: $('#main-div #graduate-student-list').attr("data-serial"),
+                        orgId: $('#main-div #graduate-student-list').attr("data-org"),
+                        graduateDateId: $('#main-div #graduate-student-list').attr("data-year-id"),
+                        typeId: $('#main-div #graduate-student-list').attr("data-type"),
+                        eduLevelId: $('#main-div #graduate-student-list').attr("data-level"),
+                        orderId: orderId,
+                        keyword: ''
+                    };
+
+                    if (keyword.trim().length > 2) {
+                        $('.btn-load-more').removeAttr('data-page');
+                        form.keyword = keyword;
+
+
+                        Hsis.Proxy.getStudentsDiplomListByDiplomParams(form, function (data) {
+                            Hsis.Service.parseStudentsWithDiplom(data);
+                        });
+
+                    } else if (keyword.trim().length == 0) {
+                        $('.btn-load-more').removeAttr('data-page');
+                        $('#search_with_diplom').val('');
+                        form.keyword = '';
+                        Hsis.Proxy.getStudentsDiplomListByDiplomParams(form, function (data) {
+                            Hsis.Service.parseStudentsWithDiplom(data);
+                        });
+                    }
+                }
+
+            } catch (err) {
+                console.error(err);
+            }
+        });
+
+
+
+
+    });
+</script>
