@@ -1062,7 +1062,7 @@ var Hsis = {
         loadDictionariesByTypeId: function (typeId, parentId, callback) {
             var result = {};
             $.ajax({
-                url: Hsis.urls.AdminRest + 'settings/dictionaries?typeId=' + typeId + '&parentId=' + parentId + '&token=' + Hsis.token,
+                url: Hsis.urls.AdminRest + 'settings/dictionaries?typeId=' + typeId + '&parentId=' + parentId + '&token=' +  Hsis.token,
                 type: 'GET',
                 global: false,
                 success: function (data) {
@@ -1072,7 +1072,6 @@ var Hsis = {
                                 case Hsis.statusCodes.OK:
                                     result = data.data;
                                     break;
-
                                 case Hsis.statusCodes.ERROR:
                                     $.notify(Hsis.dictionary[Hsis.lang]['error'], {
                                         type: 'danger'
@@ -1087,7 +1086,6 @@ var Hsis = {
                         console.error(err);
                     }
                 },
-
                 complete: function () {
 
                     callback(result);
@@ -1188,7 +1186,6 @@ var Hsis = {
                             case Hsis.statusCodes.UNAUTHORIZED:
                                 window.location = Hsis.urls.ROS + 'unauthorized';
                                 break;
-
 
                         }
 
@@ -5925,32 +5922,31 @@ var Hsis = {
                 }
             })
         },
-        getStructureListByAdress: function (id, callback) {
-
-            $.ajax({
-                url: Hsis.urls.HSIS + 'structures/address/' + id + '?token=' + Hsis.token,
-                type: 'GET',
-                success: function (result) {
-                    if (result) {
-                        switch (result.code) {
-                            case Hsis.statusCodes.OK:
-
-                                if (callback) {
-                                    callback(result);
-                                }
-                                break;
-
-                            case Hsis.statusCodes.ERROR:
-                                $.notify(Hsis.dictionary[Hsis.lang]['error'], {
-                                    type: 'danger'
-                                });
-                                break;
-
-                        }
-                    }
-                }
-            })
-        },
+        // getStructureListByAdress: function (id, callback) {
+        //
+        //     $.ajax({
+        //         url: Hsis.urls.HSIS + 'structures/address/' + id + '?token='  + Hsis.token,
+        //         type: 'GET',
+        //         success: function (result) {
+        //             if (result) {
+        //                 switch (result.code) {
+        //                     case Hsis.statusCodes.OK:
+        //
+        //                         if (callback) {
+        //                             callback(result);
+        //                         }
+        //                         break;
+        //
+        //                     case Hsis.statusCodes.ERROR:
+        //                         $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+        //                             type: 'danger'
+        //                         });
+        //                         break;
+        //                 }
+        //             }
+        //         }
+        //     })
+        // },
         getStructureListByAdressandType: function (id, type, callback) {
             $.ajax({
                 url: Hsis.urls.HSIS + 'structures/address/' + id + '?orgType=' + type + '&token=' + Hsis.token,
@@ -6854,31 +6850,31 @@ var Hsis = {
             });
 
         },
-        getAbroadOrgByAbroadAddr: function (id, callback) {
-
-            $.ajax({
-                url: Hsis.urls.HSIS + 'structures/address/abroad/' + id + '?token=' + Hsis.token,
-                type: 'GET',
-                success: function (result) {
-                    if (result) {
-                        switch (result.code) {
-                            case Hsis.statusCodes.OK:
-
-                                if (callback) {
-                                    callback(result.data);
-                                }
-                                break;
-
-                            case Hsis.statusCodes.ERROR:
-                                $.notify(Hsis.dictionary[Hsis.lang]['error'], {
-                                    type: 'danger'
-                                });
-                                break;
-                        }
-                    }
-                }
-            })
-        },
+        // getAbroadOrgByAbroadAddr: function (id, callback) {
+        //
+        //     $.ajax({
+        //         url: Hsis.urls.HSIS + 'structures/address/abroad/' + id + '?token=' + Hsis.token,
+        //         type: 'GET',
+        //         success: function (result) {
+        //             if (result) {
+        //                 switch (result.code) {
+        //                     case Hsis.statusCodes.OK:
+        //
+        //                         if (callback) {
+        //                             callback(result.data);
+        //                         }
+        //                         break;
+        //
+        //                     case Hsis.statusCodes.ERROR:
+        //                         $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+        //                             type: 'danger'
+        //                         });
+        //                         break;
+        //                 }
+        //             }
+        //         }
+        //     })
+        // },
         
         getUnreadNotification: function (callback) {
             $.ajax({

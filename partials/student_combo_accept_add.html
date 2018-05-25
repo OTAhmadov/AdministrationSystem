@@ -1413,18 +1413,18 @@
 
             var id = (!streetId || streetId == 0) ? ((!districtId || districtId == 0) ? cityId : districtId) : streetId;
 
-            Hsis.Proxy.getStructureListByAdress(id, function(data) {
-                if(data && data.data) {
-                    var html = '';
-                    
-                    html = '<option value = "0">' + Hsis.dictionary[Hsis.lang]["select"] +'</option>'
-                    $.each(data.data, function(i, v){
-                        html += '<option value = "'+v.id+'">'+v.value[Hsis.lang]+'</option>'
-                    })
-                    $('#edu_org_list').html(html)
-
-                }
-            })
+            // Hsis.Proxy.getStructureListByAdress(id, function(data) {
+            //     if(data && data.data) {
+            //         var html = '';
+            //
+            //         html = '<option value = "0">' + Hsis.dictionary[Hsis.lang]["select"] +'</option>'
+            //         $.each(data.data, function(i, v){
+            //             html += '<option value = "'+v.id+'">'+v.value[Hsis.lang]+'</option>'
+            //         })
+            //         $('#edu_org_list').html(html)
+            //
+            //     }
+            // })
               
 
          

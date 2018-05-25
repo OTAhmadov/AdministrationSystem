@@ -1417,7 +1417,6 @@
         Hsis.Proxy.loadDictionariesByTypeId('1000002', '1000072', function (eduOrg) {
             var html = Hsis.Service.parseDictionaryForSelect(eduOrg);
             $('#main-div #eduOrg').html(html);
-
             // $('#main-div #eduOrg').find('option[value="1000055"]').attr('data-org-type', 'K');
             // $('#main-div #eduOrg').find('option[value="1000073"]').attr('data-org-type', 'U');
             // $('#main-div #eduOrg').find('option[value="1000056"]').attr('data-org-type', 'M');
@@ -1469,12 +1468,10 @@
 
                 }
             })
-              
-
-         
         });
 
         $('body').on('hidden.bs.modal', '.add-edulifecycle-modal', function(){
+
             $('body').find('.add-edulifecycle-modal select').html('');
             Hsis.Proxy.loadAdressTypes('1000051', function (country) {
                 var html = Hsis.Service.parseDictionaryForSelect(country);
@@ -1714,13 +1711,13 @@
             $('#collapseEduOrg').removeClass('in');
             var orgId = $('#eduOrg').find('option:selected').val();
             var structureId = Hsis.structureId ? Hsis.structureId : 0;
+
             Hsis.Proxy.getFilteredStructureList(structureId, orgId, data.node.id, function (eduOrg) {
                 var html = '<option value="0">' + Hsis.dictionary[Hsis.lang]['select'] + '</option>';
                 if (eduOrg) {
                     $.each(eduOrg, function (i, v) {
                         html += '<option  value="' + v.id + '">' + v.name[Hsis.lang] + '</option>';
                     });
-
                 }
                 $('#edu_org_list').html(html);
             }, 1);

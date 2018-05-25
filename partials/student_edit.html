@@ -1513,32 +1513,18 @@
 
         Hsis.Proxy.loadAdressTypes('1000051', function (country) {
             var html = Hsis.Service.parseDictionaryForSelect(country);
+
             $('#main-div #student-search-city').html(html);
         });
 
-
-        $('body').on('change', '#student-search-city', function () {
-            var typeId =  $(".add-edulifecycle-modal").find(".modal-content").attr("data-uniDetailID");
-            var id = $(this).val();
-            Hsis.Proxy.loadAdressTypes(id, function (country) {
-                var html = Hsis.Service.parseDictionaryForSelect(country);
-                $('#main-div #student-search-district').html(html);
-            });
-            // get uni and college names
-            // Hsis.Proxy.getUniActionDetails(typeId, function (typeId) {
-            //     var html = '<option value="0">' + Hsis.dictionary[Hsis.lang]['select'] + '</option>';
-            //     if (typeId) {
-            //         $.each(typeId, function (i, v) {
-            //             // html += '<option  value="' + v.id + '">' + v.name[Hsis.lang] + '</option>';
-            //             html += '' + v.typeId[Hsis.lang] + '';
-            //
-            //         });
-            //     }
-            //     $('#edu_org_list').html(html);
-            //     $('#edu_org_list').select2();
-            // });
-
-        });
+    //     $('body').on('change', '#student-search-city', function () {
+    //         // var typeId =  $(".add-edulifecycle-modal").find(".modal-content").attr("data-uniDetailID");
+    //         var id = $(this).val();
+    //         Hsis.Proxy.loadAdressTypes(id, function (country) {
+    //             var html = Hsis.Service.parseDictionaryForSelect(country);
+    //             $('#main-div #student-search-district').html(html);
+    //         });
+    // });
 
 
 
@@ -1551,15 +1537,31 @@
         });
 
 
-        $('body').on('change', '.place-select', function () {
+        $('body').on('change', '#student-search-city', function () {
 
             var cityId = $('body').find('#student-search-city option:selected').val();
-            var districtId = $('body').find('#student-search-district').val();
-            var streetId = $('body').find('#student-search-street').val();
+            var id = $(this).val();
+            var orgTypeId = $('.add-edulifecycle-modal .modal-content').attr('data-unidetailid');
+            var orgType='';
 
-            var orgType = $('body').find('#eduOrg option:selected').attr('data-org-type');
+            switch (orgTypeId) {
+                case '1000055':
+                    orgType = 'K';
+                    break;
+                case   '1000056':
+                    orgType = 'M';
+                    break;
+                case '1000073':
+                    orgType = 'U';
+                    break;
+            }
 
-            var id = (!streetId || streetId == 0) ? ((!districtId || districtId == 0) ? cityId : districtId) : streetId;
+            // var id = (!streetId || streetId == 0) ? ((!districtId || districtId == 0) ? cityId : districtId) : streetId;
+
+            Hsis.Proxy.loadAdressTypes(id, function (country) {
+                var html = Hsis.Service.parseDictionaryForSelect(country);
+                $('#main-div #student-search-district').html(html);
+            });
 
             Hsis.Proxy.getStructureListByAdressandType(id, orgType, function (data) {
                 if (data && data.data) {
@@ -1568,14 +1570,10 @@
                     html = '<option value = "0">' + Hsis.dictionary[Hsis.lang]["select"] + '</option>'
                     $.each(data.data, function (i, v) {
                         html += '<option value = "' + v.id + '">' + v.value[Hsis.lang] + '</option>'
-                    })
+                    });
                     $('#edu_org_list').html(html);
-
-
                 }
             })
-
-
         });
 
 
