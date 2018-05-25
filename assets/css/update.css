@@ -1086,11 +1086,11 @@ i.jstree-icon.jstree-ocl {
     height: 100% !important;
 }
 .data .slimScrollDiv {
-    height: calc(100vh - 304px) !important;
+    height: calc(100vh - 194px) !important;
 }
 
 .data.filtered .slimScrollDiv {
-    /*height: calc(100vh - 210px) !important;*/
+    /*height: calc(100vh - 240px) !important;*/
     height: calc(100vh - 160px) !important;
 }
 
@@ -2355,7 +2355,7 @@ margin-top: -57px;
 }
 ul.nav-tabs{
     z-index: 9;
-    margin-top: 80px;
+    margin-top: 30px;
 }
 /*.nav-tabs>li.active.new-notif>a, .nav-tabs>li.active.new-notif>a:hover, .nav-tabs>li.active.new-notif>a:focus{*/
     /*border-bottom:3px solid #338BF8;*/

@@ -6235,10 +6235,13 @@ $(function () {
         var code = $(this).val();
         if(code == 1000055){
             $('body').attr('data-org-type', 'K');
+            $('.add-edulifecycle-modal .modal-content').attr('data-unidetailid', '1000055')
         } else if(code == 1000056){
             $('body').attr('data-org-type', 'M');
+            $('.add-edulifecycle-modal .modal-content').attr('data-unidetailid', '1000056')
         }else{
             $('body').attr('data-org-type', 'U');
+            $('.add-edulifecycle-modal .modal-content').attr('data-unidetailid', '1000073')
         }
     });
 
@@ -6255,6 +6258,7 @@ $(function () {
             var orgId = $(this).attr('data-org-id');
             var orgType = $(this).parents('tr').attr('data-type-id');
             var statusId = $(this).parents('.student-action').attr('data-status-id');
+
             var dataTypeId = $(this).parents('.student-action').find("thead tr:eq(0)").attr('data-type-id');
             var structureName = $(this).parents('.student-action').find("table tr td:eq(0)").text();
 
@@ -6303,6 +6307,7 @@ $(function () {
                     $('#main-div #edu_org_list').val(data.data.org.id)
                 }, 1);
 
+
                 if( data.data.org.typeId = 1000055){
                     $('body').find('.uni-type').css('display','none');
                     $('body').find('#end_action_type').val();
@@ -6313,18 +6318,17 @@ $(function () {
                 Hsis.Proxy.loadDictionariesByTypeId('1000025', '1000258', function (startActionType) {
                     var html = Hsis.Service.parseDictionaryForSelect(startActionType);
                     $('#start_action_type').html(html);
+                    startActiontype = startActiontype.trim();
+                    $('.add-edulifecycle-modal').find("#start_action_type").val();
                 });
 
                 Hsis.Proxy.loadDictionariesByTypeId('1000025', '1000259', function (endActionType) {
                     var html = Hsis.Service.parseDictionaryForSelect(endActionType);
                     $('#end_action_type').html(html);
+                    dataEndActionType = dataEndActionType.trim();
+                    $('.add-edulifecycle-modal').find("#end_action_type").val();
                 });
 
-                // if (type == '1000056' || type == '1000073') {
-                //     $('body [uni-type]').removeClass('hidden');
-                // } else {
-                //     $('body [uni-type]').addClass('hidden');
-                // }
 
                 $('#main-div #edit_uni_action_apply_score').val(data.data.applyScore);
                 $('#main-div .edit-uni-action').attr('data-id', id);
@@ -6336,17 +6340,14 @@ $(function () {
 
                 $('.add-edulifecycle-modal').find('#edu_org_list').empty().append("<option>"+structureName+"</option>");
 
-                setTimeout(function() {
-                    startActiontype = startActiontype.trim();
-                    $('.add-edulifecycle-modal').find("#start_action_type option:contains('"+startActiontype+"')").prop("selected",true);
-                    dataEndActionType = dataEndActionType.trim();
-                    $('.add-edulifecycle-modal').find("#end_action_type option:contains('"+dataEndActionType+"')").prop("selected",true);
-                },500);
+                // setTimeout(function() {
+                //     startActiontype = startActiontype.trim();
+                //     $('.add-edulifecycle-modal').find("#start_action_type option:contains('"+startActiontype+"')").prop("selected",true);
+                //     dataEndActionType = dataEndActionType.trim();
+                //     $('.add-edulifecycle-modal').find("#end_action_type option:contains('"+dataEndActionType+"')").prop("selected",true);
+                // },500);
 
                 $('.add-edulifecycle-modal').find('#edu-start-date').val(dataActionDate);   /*date*/
-
-
-
 
                 // $('#main-div .student-edit-uni-action-modal').modal({
                 //     backdrop: false
@@ -6509,22 +6510,19 @@ $(function () {
 
     $('body').on('click', '.add-edulifecycle', function (e) {
         try {
-            $('body').find('#student-search-city').val('').trigger('change');
-            $('body').find('#student-search-district').val('').trigger('change');
-            $('body').find('#student-search-street').val('').trigger('change');
+
+            $('body').find('#student-search-district').html('');
+            $('body').find('#student-search-street').val('').html('');
             $('body').find('#edu_org_list').val('').trigger('change');
             $('body').find('#start_action_type').val('').trigger('change');
             $('body').find('#past_apply_score').val('').trigger('change');
             $('body').find('#edu-start-date').val(' ')
             $('body').find('#edu-end-date').val(' ')
 
+
+
             var eduOrg = $('body #eduOrg').val();
-            var node = $("#address_tree_id").jstree('get_selected', true);
-            if (node.length > 0) {
-                $("#address_tree_id").jstree('deselect_node', node);
-                $('#edu_org_address_h6').html('');
-                $('#edu_org_list').find('option[value="0"]').prop('selected', true);
-            }
+
             if (eduOrg == 0 || eduOrg == undefined) {
                 $.notify(Hsis.dictionary[Hsis.lang]['select_information'], {
                     type: 'danger'
