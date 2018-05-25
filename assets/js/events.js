@@ -7994,7 +7994,7 @@ $(function () {
                                 '</div>' +
                                 '<div class="user-doc-file" data-file-id = "' + id + '" data-file-path = "' + v.path + '">' +
                                 '<img src="' + Hsis.urls.HSIS + 'order/file/' + id + '?token=' + Hsis.token + '" alt="" width="50" height="50">' +
-                                '<div class="upload-img"><a href="' + Hsis.urls.HSIS + 'order/file/' + id + '?token=' + Hsis.token + '" download = "' + v.originalName + '"><img src="assets/img/upload-img.png" width="20" height="20"></a></div>' +
+                                '<div class="upload-img"><a href="' + Hsis.urls.HSIS + 'order/file/' + id + '?fileType=1&token=' + Hsis.token + '" download = "' + v.originalName + '"><img src="assets/img/upload-img.png" width="20" height="20"></a></div>' +
                                 '</div>' +
                                 '</div>';
                     }
