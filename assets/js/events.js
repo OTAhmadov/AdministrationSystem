@@ -73,22 +73,6 @@ $(function () {
     Hsis.Proxy.loadApplications();
 
     $('body .iframe-tab-1').attr('src', Hsis.urls.NOTIFICATION  + Hsis.token);
-    // $('.iframe-tab-1').attr('src', Hsis.urls.NOTIFICATION  + Hsis.token);
-    setInterval(function() {
-
-        Hsis.Proxy.getUnreadNotification(function(data){
-
-            if(data && data.data) {
-                if(data.data > 0) {
-                    $('body .notification').removeClass("hidden");
-                } else {
-                     $('body .notification').addClass("hidden");
-                }
-            } else {
-                 $('body .notification').addClass("hidden");
-            }
-        })
-    }, 15000);
 
     Hsis.Proxy.loadModules(function (modules) {
         $('ul.module .mod-con').prepend(Hsis.Service.parseModules(modules));
@@ -10548,6 +10532,7 @@ $(function () {
                 var orderId = $('body').find('#student_list_without').attr('order-id');
                 var specId = $('body').find('#org_spec_level_filter-2').val();
                 var id = $('body').find('#org_spec_level_filter').val();
+                var groupId = $('body #aca_group').val();
                 var form = {
                     orderTypeId: orderTypeId,
                     orderTypeParentId: parentId,
@@ -10556,6 +10541,7 @@ $(function () {
                     specId: specId,
                     specTypeId: id,
                     keyword: keyword,
+                    groupId: groupId
                 };
                 if (keyword.trim().length > 2) {
                     $('.btn-load-more').removeAttr('data-page');
