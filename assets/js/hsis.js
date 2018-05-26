@@ -19,7 +19,7 @@ $(".addonJs").append(s);*/
 
 var cropForm = new FormData();
 var Hsis = {
-    // token: '14f7b8ef1b604317ae25901b1e726cc14f6d8d9ecf244fa0983e8a5a9d4c0051',
+    token: 'd31612bbe7044c5596355a064a74f8ea2ce6e1eaae1e46fb8b2d0e2069280f06',
     lang: 'az',
     appId: 1000003,
     currModule: '',
@@ -35,6 +35,7 @@ var Hsis = {
     universities: [],
     begin: true,
     personId: '',
+    stompClient:0,
     tempData: {
         form: ''
     },
@@ -47,12 +48,14 @@ var Hsis = {
 //         AdminRest: 'http://localhost:8080/AdministrationRest/',
 //         AdminRest: 'http://localhost:8080/AdministrationRest/',
         AdminRest: 'http://192.168.1.78:8082/AdministrationRest/',
-        HSIS: "http://192.168.1.78:8082/UnibookHsisRest/",
-//        HSIS: "http://localhost:8080/UnibookHsisRest/",
+//        HSIS: "http://192.168.1.78:8082/UnibookHsisRest/",
+        HSIS: "http://localhost:8080/UnibookHsisRest/",
         REPORT: 'http://192.168.1.78:8082/ReportingRest/',
         EMS: 'http://192.168.1.78:8082/UnibookEMS/',
         COMMUNICATION: 'http://192.168.1.78:8082/CommunicationRest/',
         NOTIFICATION: 'http://192.168.1.78:8082/NotificationSystem/greeting.html?token=',
+        SOCKET: 'http://192.168.1.78:8082/SocketRest'
+        
 //        EMS: 'http://localhost:8080/UnibookEMS/',
         // REPORT: 'http://localhost:8080/ReportingRest/'
     },
@@ -9649,7 +9652,34 @@ var Hsis = {
                 return false;
             }
         }
-    }
+    },
+    
+     
+    WebSocket: {
+            
+           connect: function () {
+                var name = $('.namename').val();
+                var socket = new SockJS(Hsis.urls.SOCKET + '/chat');
+                Hsis.stompClient = Stomp.over(socket);
+                Hsis.stompClient.connect({'Login':Hsis.token}, function (frame) {
+                    var sessionId = /\/([^\/]+)\/websocket/.exec(socket._transport.url)[1];
+//                    console.log("connected, session id: " + sessionId);
+                    Hsis.stompClient.subscribe('/topic/messages/' + sessionId, function (messageOutput) {
+                            $('body .notification').removeClass('hidden');
+                            
+                    });
+                });
+            },
+
+            disconnect: function (a) {
+                if (Hsis.stompClient != 0) {
+                    Hsis.stompClient.disconnect();
+                }
+                if(a==1) {
+                    Hsis.WebSocket.connect();
+                }
+            },
+    },
 
 };
 
