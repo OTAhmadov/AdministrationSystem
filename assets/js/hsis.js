@@ -19,7 +19,7 @@ $(".addonJs").append(s);*/
 
 var cropForm = new FormData();
 var Hsis = {
-    token: 'd31612bbe7044c5596355a064a74f8ea2ce6e1eaae1e46fb8b2d0e2069280f06',
+    // token: 'fc884c6ad92747428a14a88120ed588fec94b3ac62214aa199bee4de9ee1f3a6',
     lang: 'az',
     appId: 1000003,
     currModule: '',
@@ -48,8 +48,8 @@ var Hsis = {
 //         AdminRest: 'http://localhost:8080/AdministrationRest/',
 //         AdminRest: 'http://localhost:8080/AdministrationRest/',
         AdminRest: 'http://192.168.1.78:8082/AdministrationRest/',
-//        HSIS: "http://192.168.1.78:8082/UnibookHsisRest/",
-        HSIS: "http://localhost:8080/UnibookHsisRest/",
+       HSIS: "http://192.168.1.78:8082/UnibookHsisRest/",
+//         HSIS: "http://localhost:8080/UnibookHsisRest/",
         REPORT: 'http://192.168.1.78:8082/ReportingRest/',
         EMS: 'http://192.168.1.78:8082/UnibookEMS/',
         COMMUNICATION: 'http://192.168.1.78:8082/CommunicationRest/',

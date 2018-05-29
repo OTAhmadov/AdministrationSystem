@@ -15,7 +15,6 @@
             <div class="row no-margin panel-heading">
                 <h3 class="panel-title"><span data-i18n="students" placeholder="Tələbələr">Tələbələr</span>: <span data-student-count="">0</span> </h3>
             </div>
-
             <div class="  panel-body ss">
                 <div class="three-tabs panel-title">
                     <ul class="nav  ">
@@ -161,6 +160,9 @@
             $('body').find('.pelc-with-without-order').css('right', '-100%');
 
         });
+
+        $('body').find('#org_spec_level_filter-2').select2();
+        $('body').find('#aca_group').select2();
 
         $('body').find('.search-scroll').slimScroll();
 
@@ -364,8 +366,9 @@
         });
 
         $('#main-div').off('click', '#confirmOrder').on('click', '#confirmOrder', function (e) {
+            e.preventDefault(e);
+            // return false;
             try {
-
                 var form = $('#students_without_order').serialize();
                 if (form.length == 0) {
                     $.alert({

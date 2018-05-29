@@ -35,8 +35,6 @@
         <script src="assets/js/additionalFunctions.js"></script>
         <script src="assets/js/jquery.slimscroll.min.js"></script>
         <script src="assets/js/jstree.js"></script>
-        <script src="assets/js/stomp.js"></script>
-         <script src="assets/js/sockjs-0.3.js"></script>
         <script src="assets/js/hsis.js"></script>
         <script src="assets/js/events.js"></script>
         <script src="assets/js/orderby.js"></script>
@@ -49,10 +47,10 @@
         <script src="assets/js/select2.min.js"></script>
         <script src="assets/js/notify.js"></script>
         <script src="assets/js/cropper/dist/cropper.js"></script>
-        
+
         <script type="text/javascript" src="assets/plugins/inputmask/js/jasny-bootstrap.min.js"></script>
     </head>
-    <body onload="Hsis.WebSocket.disconnect(1)">
+    <body>
 
         <div class="progress-backdrop hidden"></div>
         <div id="main-div" class="hidden ">
@@ -68,6 +66,7 @@
                                     <div class="notification hidden"></div>
                                 </div>
                                 <img src="assets/img/index.png" alt="default-img" >
+                                <a href="" class="get_notification_page"><i class="fa fa-bell"></i></a>
                             </div>
                             <div class="user-info animated">
                                 <div class="big-img no-border-radius">
@@ -99,6 +98,11 @@
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active" id="profile">
                                         <iframe class="iframe-tab-1" frameborder="0"></iframe>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade" id="buzz">
+                                        <iframe class="setting" src="http://192.168.1.78:8082/Main/#/profile-edit?token=deffde827d4a49f7a671cbc05cedba093105ca4c2dd84d34a84ba1cba0066b7e" frameborder="0"></iframe>
+                                    </div>
+                                </div>
                                         <!--<div class="data profile-data">-->
                                             <!--<ul>-->
                                                 <!--<li data-type="name"></li>-->
@@ -128,13 +132,6 @@
                                             <!--</div>-->
 
                                         <!--</div>-->
-                                    </div>
-
-                                    <div role="tabpanel" class="tab-pane fade" id="buzz">
-                                        <iframe class="setting" src="http://192.168.1.78:8082/Main/#/profile-edit?token=deffde827d4a49f7a671cbc05cedba093105ca4c2dd84d34a84ba1cba0066b7e" frameborder="0"></iframe>
-
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -147,11 +144,9 @@
                             <!--<span aria-hidden="true">&times;</span>-->
                         <!--</button>-->
                         <div class="app-list">
-
                             <ul class="app-con">
                             </ul>
                         </div>
-
                     </div>
                 </div>
             </header>
