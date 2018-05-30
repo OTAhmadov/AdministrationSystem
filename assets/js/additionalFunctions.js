@@ -10,9 +10,6 @@ $('document').ready(function() {
  var setb = $('.content-upper-header .settings-button')
 
     // userInfo.addClass('hidden');
-
-
-
     // $('.main-img').click(function(e) {
     //     userInfo.removeClass('hidden');
     //

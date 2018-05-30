@@ -1208,14 +1208,18 @@ $(function () {
             Hsis.Proxy.loadAbroadAddress('1000323', '', function (country) {
                 var html = Hsis.Service.parseDictionaryForSelect(country);
                 $('#foreign_country').html(html);
-                $('#foreign_country').val(countryId).trigger('change');
-                Hsis.Proxy.loadAbroadAddress('1000324', countryId, function (city) {
-                    var html = Hsis.Service.parseDictionaryForSelect(city);
-                    $('#main-div #foreign_city').html(html);
-                    $('#main-div #foreign_city').val(cityId).trigger('change');
-                    $('#xtm-university').val(uniName);
-                    $('body').find('.new-upd').css('right', '0');
-                });
+
+                setTimeout(function() {
+                    $('#foreign_country').val(countryId).trigger('change');
+                    Hsis.Proxy.loadAbroadAddress('1000324', countryId, function (city) {
+                        var html = Hsis.Service.parseDictionaryForSelect(city);
+                        $('#main-div #foreign_city').html(html);
+                        $('#main-div #foreign_city').val(cityId).trigger('change');
+                        $('#xtm-university').val(uniName);
+                        $('body').find('.new-upd').css('right', '0');
+                    });
+                },250);
+
             });
         } catch (err) {
             console.error(err);
@@ -1239,8 +1243,20 @@ $(function () {
     });
 
 
-
-
+// add function xtms-structure to module_1000132
+    $('body').on('click', '#operation_1001380', function () {
+        try {
+            $('body .xtms-approve').attr('data-type', 'add');
+            Hsis.Proxy.loadAbroadAddress('1000323', '', function (country) {
+                var html = Hsis.Service.parseDictionaryForSelect(country);
+                $('#foreign_country').html(html);
+                $('#main-div #foreign_city').html('');
+                $('body').find('.new-upd').css('right', '0');
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    });
 
 
     $('body').on('click', '#operation_1001384', function () {
@@ -1262,6 +1278,8 @@ $(function () {
             console.error(err);
         }
     });
+
+
 
     $('body').on('click', '.xtms-approve', function(){
         var objectForm = $('body #add_abroad_structure_form').serialize();
@@ -10660,12 +10678,6 @@ $(function () {
     // $(".main-img").on("click", function () {
     //     $(".user-info").removeClass("helloWorld");
     // });
-
-
-
-
-
-
 
 
     var width = window.innerWidth;

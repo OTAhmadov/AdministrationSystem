@@ -92,7 +92,7 @@
     <div class="search-scroll search-top">
         <div class="xtms-tes-str">
             <div class="search-butons">
-                <a data-i18n="ok" class=" xtms-approve">OK</a>
+                <a data-i18n="ok" class="xtms-approve">OK</a>
                 <!--btn-subject-catalog-submit-->
                 <a href="" data-i18n="close" class="close-student-search" placeholder="Bağla">Bağla</a>
             </div>
@@ -203,7 +203,6 @@
         // });
         $('#main-div').on('change', '#foreign_country', function () {
             var id = $(this).val();
-
             if (id > 0) {
                 Hsis.Proxy.loadAbroadAddress('1000324', id, function (city) {
                     var html = Hsis.Service.parseDictionaryForSelect(city);
@@ -258,7 +257,7 @@
         // });
         try {
             Hsis.i18n(Hsis.lang);
-            // $('#main-div .sub_modules_div').remove();
+            $('#main-div .sub_modules_div').remove();
             Hsis.Proxy.loadOperations(Hsis.currModule, function (operations) {
                 $('#buttons_div').find('ul').html(Hsis.Service.parseOperations(operations, 1));
                 Hsis.Proxy.getAbroadStructure();
