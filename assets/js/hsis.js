@@ -377,8 +377,6 @@ var Hsis = {
             })
         },
 
-
-
         // get request for abroadaddress
         getAbroadAddress: function (page, form, callback) {
             $.ajax({
@@ -410,7 +408,6 @@ var Hsis = {
                 }
             })
         },
-
 
         //AJAX Request
         addAbroadStructure: function (form, callback) {
@@ -452,6 +449,83 @@ var Hsis = {
                 }
             })
         },
+
+        //add
+        addAbroadAddress: function (form, callback) {
+            $.ajax({
+                url: Hsis.urls.HSIS + 'structures/abroad/address/add?token=' + Hsis.token,
+                type: 'POST',
+                data: form,
+                beforeSend: function() {
+                    $('.xtms-approve-address').attr('disabled', 'disabled');
+                },
+                success: function (data) {
+                    if (data) {
+                        switch (data.code) {
+                            case Hsis.statusCodes.ERROR:
+                                if (data.message) {
+                                    $.notify(data.message[Hsis.lang], {
+                                        type: 'danger'
+                                    });
+                                } else {
+                                    $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+                                        type: 'danger'
+                                    });
+                                }
+                                break;
+                            case Hsis.statusCodes.OK:
+                                $.notify(Hsis.dictionary[Hsis.lang]['success'], {
+                                    type: 'success'
+                                });
+                                if(callback) callback(data);
+                                break;
+                            case Hsis.statusCodes.UNAUTHORIZED:
+                                window.location = Hsis.urls.ROS + 'login?app=' + Hsis.token;
+                                break;
+                        }
+                    }
+                },
+                complete: function() {
+                    $('.xtms-approve-address').removeAttr('disabled');
+                }
+            })
+        },
+
+        //remove ADDRESS
+        removeAbroadAddress: function (id, callback) {
+            $.ajax({
+                url: Hsis.urls.HSIS + 'structures/abroad/address/' + id + '/remove?token=' + Hsis.token,
+                type: 'POST',
+                success: function (data) {
+                    if (data) {
+                        switch (data.code) {
+                            case Hsis.statusCodes.ERROR:
+                                if (data.message) {
+                                    $.notify(data.message[Hsis.lang], {
+                                        type: 'danger'
+                                    });
+                                } else {
+                                    $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+                                        type: 'danger'
+                                    });
+                                }
+                                break;
+                            case Hsis.statusCodes.OK:
+                                $.notify(Hsis.dictionary[Hsis.lang]['success'], {
+                                    type: 'success'
+                                });
+                                if(callback) callback(data);
+                                break;
+                            case Hsis.statusCodes.UNAUTHORIZED:
+                                window.location = Hsis.urls.ROS + 'login?app=' + Hsis.token;
+                                break;
+                        }
+                    }
+                }
+            })
+        },
+
+        //remove abroad structure
         removeAbroadStructure: function (id, callback) {
             $.ajax({
                 url: Hsis.urls.HSIS + 'structures/abroad/' + id + '/remove?token=' + Hsis.token,
@@ -485,7 +559,43 @@ var Hsis = {
             })
         },
 
-        //edit
+        //edit2 ADDRESS
+        editAbroadAddress: function (id, formData, callback) {
+            $.ajax({
+                url: Hsis.urls.HSIS + 'structures/abroad/address/' + id + '/edit?token=' + Hsis.token,
+                type: 'POST',
+                data: formData,
+                success: function (data) {
+                    if (data) {
+                        switch (data.code) {
+                            case Hsis.statusCodes.ERROR:
+                                if (data.message) {
+                                    $.notify(data.message[Hsis.lang], {
+                                        type: 'danger'
+                                    });
+                                } else {
+                                    $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+                                        type: 'danger'
+                                    });
+                                }
+                                break;
+                            case Hsis.statusCodes.OK:
+                                $.notify(Hsis.dictionary[Hsis.lang]['success'], {
+                                    type: 'success'
+                                });
+                                if(callback) callback(data);
+                                break;
+                            case Hsis.statusCodes.UNAUTHORIZED:
+                                window.location = Hsis.urls.ROS + 'login?app=' + Hsis.token;
+                                break;
+                        }
+                    }
+                }
+            })
+        },
+
+
+        //edit Structure
         editAbroadStructure: function (id, formData, callback) {
             $.ajax({
                 url: Hsis.urls.HSIS + 'structures/abroad/' + id + '/edit?token=' + Hsis.token,
@@ -519,6 +629,8 @@ var Hsis = {
                 }
             })
         },
+
+
 
         getProfile: function () {
             $.ajax({
@@ -738,10 +850,6 @@ var Hsis = {
                 },
                 complete: function () {
                     callback(operations);
-                    // if ($('#buttons_div').find('ul li').length < 1) {
-                    //     $('#buttons_div').hide();
-                    //     // console.log('empty')
-                    // }
                 }
             });
         },
@@ -6821,8 +6929,8 @@ var Hsis = {
                     }
                 },
             });
-
         },
+
         loadAbroadAddress: function (type, parent, callback) {
             $.ajax({
                 url: Hsis.urls.AdminRest + 'settings/address/abroad?token=' + Hsis.token,

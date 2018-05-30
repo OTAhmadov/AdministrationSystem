@@ -10,13 +10,12 @@
                    placeholder="search">
 
         </div>
-        <div id="buttons_div2" class="dropdown-func">
+        <div id="buttons_div" class="dropdown-func">
             <div class="btn btn-default reg dropdown-toggle cog" data-toggle="dropdown" aria-haspopup="true"
                  aria-expanded="false">
                 Ümumi əməliyyatlar
             </div>
             <ul id="module_operations" class="dropdown-menu calibrated">
-                <li><a id="operation_1001380" href="#">Əlavə et</a></li>
             </ul>
         </div>
     </div>
@@ -92,7 +91,7 @@
     <div class="search-scroll search-top">
         <div class="xtms-tes-str">
             <div class="search-butons">
-                <a data-i18n="ok" class="xtms-approve">OK</a>
+                <a data-i18n="ok" class="xtms-approve-address">OK</a>
                 <!--btn-subject-catalog-submit-->
                 <a href="" data-i18n="close" class="close-student-search" placeholder="Bağla">Bağla</a>
             </div>
@@ -100,14 +99,14 @@
                 <!--<h3 class="panel-title">Yeni Fənn Kataloqu</h3>-->
             </div>
             <div class="">
-                <form id="add_abroad_structure_form">
+                <form id="add_abroad_address_form">
                     <!--<input subject-catalog-required class="structure-id hidden" name = "orgId" type="hidden" />-->
                     <!--<input class="structure-type-id hidden"/>-->
                     <div class="form-group">
                         <label for="add-serial">Ölkə</label>
+                        <!--subject-catalog-required-->
                         <div class="">
-                            <select subject-catalog-required class="form-control no-padding select-with-search"
-                                    id="foreign_country">
+                            <select name="parentId"  class="form-control no-padding select-with-search" id="foreign_country">
 
                             </select>
                         </div>
@@ -130,7 +129,18 @@
 <!--</style>-->
 <script type="text/javascript">
     $(function (e) {
-        Hsis.Proxy.getAbroadAddress();
+
+        try {
+            Hsis.i18n(Hsis.lang);
+            $('#main-div .sub_modules_div').remove();
+            Hsis.Proxy.loadOperations(Hsis.currModule, function (operations) {
+                $('#buttons_div').find('ul').html(Hsis.Service.parseOperations(operations, 1));
+               Hsis.Proxy.getAbroadAddress();
+            });
+        }
+        catch (err) {
+            console.error(err);
+        }
 
         $('body').find('.table-scroll').slimScroll();
         $('body').find('.search-select').select2();
@@ -152,6 +162,7 @@
         // $("#subject-catalog-table").find("thead tr").each(function() {
         //     $(this).find("tH:eq(3)").remove();
         // });
+
         // $('body').on('click', '#operation_1001384', function () {
         //     $('body').find('.new-upd').css('right', '0');
         //     try {
@@ -201,6 +212,9 @@
         //     }
         //
         // });
+
+
+
         $('#main-div').on('change', '#foreign_country', function () {
             var id = $(this).val();
             if (id > 0) {
@@ -255,17 +269,9 @@
         // $('.subject-catalog-modal').on('hidden.bs.modal', function () {
         //     $('body').find('.subject-catalog-modal .structure-id, .subject-catalog-modal .subject-catalog-subject').removeClass('blank-required-field');
         // });
-        try {
-            Hsis.i18n(Hsis.lang);
-            $('#main-div .sub_modules_div').remove();
-            Hsis.Proxy.loadOperations(Hsis.currModule, function (operations) {
-                $('#buttons_div').find('ul').html(Hsis.Service.parseOperations(operations, 1));
-                Hsis.Proxy.getAbroadStructure();
-            });
-        }
-        catch (err) {
-            console.error(err);
-        }
+
+
+
     });
 
 </script>

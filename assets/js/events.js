@@ -1195,20 +1195,71 @@ $(function () {
         }
     } );
 
-    // edit function xtms-structure to module_1000131
 
-    $('body').on('click', '#operation_1001380', function () {
+    //remove function  to module_1000132
+    $('body').on('click', '#operation_1001385',function (e) {
+        try {
+            var id = $('#abroad-structure-address tbody tr').attr('data-id');
+            $.confirm({
+                title: Hsis.dictionary[Hsis.lang]['warning'],
+                content: Hsis.dictionary[Hsis.lang]['delete_info'],
+                confirm: function () {
+                    Hsis.Proxy.removeAbroadAddress(id, function (data) {
+                        Hsis.Proxy.getAbroadAddress();
+                    })
+                },
+                theme: 'black'
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    } );
+
+
+
+
+
+
+    // edit function xtms-structure-address to module_1000132
+    $('body').on('click', '#operation_1001384', function () {
         try {
                 var countryId = $(this).parents('tr').attr('data-country-id');
                 var cityId = $(this).parents('tr').attr('data-city-id');
-                var uniName = $(this).parents('tr').attr('data-uni-name');
+                // var uniName = $(this).parents('tr').attr('data-uni-name');
                 var id = $(this).parents('tr').attr('data-id');
-                $('body .xtms-approve').attr('data-type', 'edit');
-                $('body .xtms-approve').attr('data-id', id);
+                $('body .xtms-approve-address').attr('data-type', 'edit');
+                $('body .xtms-approve-address').attr('data-id', id);
             Hsis.Proxy.loadAbroadAddress('1000323', '', function (country) {
                 var html = Hsis.Service.parseDictionaryForSelect(country);
                 $('#foreign_country').html(html);
+                setTimeout(function() {
+                    $('#foreign_country').val(countryId).trigger('change');
+                    Hsis.Proxy.loadAbroadAddress('1000324', countryId, function (city) {
+                        var html = Hsis.Service.parseDictionaryForSelect(city);
+                        $('#main-div #foreign_city').html(html);
+                        $('#main-div #foreign_city').val(cityId).trigger('change');
+                        // $('#xtm-university').val(uniName);
+                        $('body').find('.new-upd').css('right', '0');
+                    });
+                },250);
 
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
+    $('body').on('click', '#operation_1001380', function () {
+        try {
+            var countryId = $(this).parents('tr').attr('data-country-id');
+            var cityId = $(this).parents('tr').attr('data-city-id');
+            var uniName = $(this).parents('tr').attr('data-uni-name');
+            var id = $(this).parents('tr').attr('data-id');
+            $('body .xtms-approve').attr('data-type', 'edit');
+            $('body .xtms-approve').attr('data-id', id);
+            Hsis.Proxy.loadAbroadAddress('1000323', '', function (country) {
+                var html = Hsis.Service.parseDictionaryForSelect(country);
+                $('#foreign_country').html(html);
                 setTimeout(function() {
                     $('#foreign_country').val(countryId).trigger('change');
                     Hsis.Proxy.loadAbroadAddress('1000324', countryId, function (city) {
@@ -1226,6 +1277,7 @@ $(function () {
         }
     });
 
+
     // add function xtms-structure to module_1000131
     $('body').on('click', '#operation_1001379', function () {
         try {
@@ -1242,15 +1294,15 @@ $(function () {
         }
     });
 
-
-// add function xtms-structure to module_1000132
-    $('body').on('click', '#operation_1001380', function () {
+//add function xtms-structure-address to module_1000132
+    $('body').on('click', '#operation_1001383', function () {
         try {
-            $('body .xtms-approve').attr('data-type', 'add');
+            $('body .xtms-approve-address').attr('data-type', 'add');
             Hsis.Proxy.loadAbroadAddress('1000323', '', function (country) {
                 var html = Hsis.Service.parseDictionaryForSelect(country);
                 $('#foreign_country').html(html);
                 $('#main-div #foreign_city').html('');
+                // $('#xtm-university').val('');
                 $('body').find('.new-upd').css('right', '0');
             });
         } catch (err) {
@@ -1259,34 +1311,12 @@ $(function () {
     });
 
 
-    $('body').on('click', '#operation_1001384', function () {
-        try {
-            var countryId = $(this).parents('tr').attr('data-country-id');
-            var cityId = $(this).parents('tr').attr('data-city-id');
-            Hsis.Proxy.loadAbroadAddress('1000323', '', function (country) {
-                var html = Hsis.Service.parseDictionaryForSelect(country);
-                $('#foreign_country').html(html);
-                $('#foreign_country').val(countryId).trigger('change');
-                Hsis.Proxy.loadAbroadAddress('1000324', countryId, function (city) {
-                    var html = Hsis.Service.parseDictionaryForSelect(city);
-                    $('#main-div #foreign_city').html(html);
-                    $('#main-div #xtm-city').val(cityId);
-                    $('body').find('.new-upd').css('right', '0');
-                });
-            });
-        } catch (err) {
-            console.error(err);
-        }
-    });
-
-
-
     $('body').on('click', '.xtms-approve', function(){
         var objectForm = $('body #add_abroad_structure_form').serialize();
         var id = $(this).attr('data-id');
         var type = $(this).attr('data-type');
         if(type === 'add') {
-            Hsis.Proxy.addAbroadStructure(objectForm, function(data){
+            Hsis.Proxy.editAbroadStructure(objectForm, function(data){
                 if(data) {
                     $('body').find('#main-div .select-with-search').select2('val',' ', true);
                     $('body').find('#main-div #xtm-university').val(' ');
@@ -1303,6 +1333,33 @@ $(function () {
         }
         console.log(objectForm)
     });
+
+
+
+    //approve-address
+    $('body').on('click', '.xtms-approve-address', function(){
+        var objectForm = $('body #add_abroad_address_form').serialize();
+        var id = $(this).attr('data-id');
+        var type = $(this).attr('data-type');
+        if(type === 'add') {
+            Hsis.Proxy.addAbroadAddress(objectForm, function(data){
+                if(data) {
+                    $('body').find('#main-div #foreign_country').select2('val',' ', true);
+                    $('body').find('#main-div #xtm-city').val(' ');
+                    Hsis.Proxy.getAbroadAddress();
+                }
+            });
+        } else if(type === 'edit') {
+            Hsis.Proxy.editAbroadAddress(id, objectForm, function(data){
+                if(data) {
+                    Hsis.Proxy.getAbroadAddress();
+                }
+            });
+        }
+        console.log(objectForm)
+    });
+
+
 
 
 
