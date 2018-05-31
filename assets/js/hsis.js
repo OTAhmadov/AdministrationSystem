@@ -19,7 +19,7 @@ $(".addonJs").append(s);*/
 
 var cropForm = new FormData();
 var Hsis = {
-    // token: '5761d1ef277a42309fd988ff5190541d67e41f4b1a6c452eb9486271eae0a14b',
+    // token: 'b2b35e6683f9415e927efe01c998b55c5243f0e59853443e9cdceb2f147c8237',
     lang: 'az',
     appId: 1000003,
     currModule: '',
@@ -376,7 +376,6 @@ var Hsis = {
                 }
             })
         },
-
         // get request for abroadaddress
         getAbroadAddress: function (page, form, callback) {
             $.ajax({
@@ -490,7 +489,6 @@ var Hsis = {
                 }
             })
         },
-
         //remove ADDRESS
         removeAbroadAddress: function (id, callback) {
             $.ajax({
@@ -524,7 +522,6 @@ var Hsis = {
                 }
             })
         },
-
         //remove abroad structure
         removeAbroadStructure: function (id, callback) {
             $.ajax({
@@ -558,7 +555,6 @@ var Hsis = {
                 }
             })
         },
-
         //edit2 ADDRESS
         editAbroadAddress: function (id, formData, callback) {
             $.ajax({
@@ -593,8 +589,6 @@ var Hsis = {
                 }
             })
         },
-
-
         //edit Structure
         editAbroadStructure: function (id, formData, callback) {
             $.ajax({
@@ -649,10 +643,10 @@ var Hsis = {
                                 try {
                                     if (data.data) {
                                         var user = data.data;
-                                        $('.profile-data li[data-type="name"]').text(user.person.name + ' ' + user.person.surname + ' ' + user.person.patronymic);
-                                        $('.welcome-text p span').text(user.person.name);
-                                        $('.profile-data li[data-type="role"]').text(user.role.value[Hsis.lang]);
-                                        $('.profile-data li[data-type="org"]').text(user.structure.name[Hsis.lang]);
+                                        $('.user-notify-content h6').text(user.person.name + ' ' + user.person.surname + ' ' + user.person.patronymic);
+                                        // $('.welcome-text p span').text(user.person.name);
+                                        $('.user-notify-content p[data-type="role"]').text(user.role.value[Hsis.lang]);
+                                        $('.user-notify-content p[data-type="org"]').text(user.structure.name[Hsis.lang]);
                                         $('.side-title-block p').text(user.orgName.value[Hsis.lang]);
                                         $('.main-img img').attr('src', Hsis.urls.AdminRest + 'users/' + user.id + '/image?token=' + Hsis.token);
                                         $('.side-title-block img').attr('src', Hsis.urls.HSIS + 'structures/' + user.orgName.id + '/logo?token=' + Hsis.token);
@@ -3951,6 +3945,8 @@ var Hsis = {
                 }
             });
         },
+
+        //teacher
         addTeacherEduLifeCycle: function (eduLifeCycle, callback) {
             var personId = $('#main-div').attr('data-id');
             $.ajax({
@@ -3970,7 +3966,6 @@ var Hsis = {
                                 });
                                 callback(result);
                                 break;
-
                             case Hsis.statusCodes.ERROR:
                                 if (result.message) {
                                     $.notify(result.message[Hsis.lang], {
@@ -3982,11 +3977,9 @@ var Hsis = {
                                     });
                                 }
                                 break;
-
                             case Hsis.statusCodes.UNAUTHORIZED:
                                 window.location = Hsis.urls.ROS + 'login?appId=' + Hsis.appId;
                                 break;
-
                         }
                     }
                 },
@@ -7570,9 +7563,9 @@ var Hsis = {
         },
         parseEditTeacherEduLifeCycle: function (data) {
             try {
+
                 var html = '';
                 $.each(data.personEduLifeCycles, function (i, v) {
-
                     html += '<div class="col-md-12 for-align edu-info-item" >' +
                         '<table class="table-block col-md-12">' +
                         '<thead>' +

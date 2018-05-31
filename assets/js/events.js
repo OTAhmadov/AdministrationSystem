@@ -1249,6 +1249,7 @@ $(function () {
         }
     });
 
+    // edit function xtms-structure-address to module_1000131
     $('body').on('click', '#operation_1001380', function () {
         try {
             var countryId = $(this).parents('tr').attr('data-country-id');
@@ -1294,7 +1295,7 @@ $(function () {
         }
     });
 
-//add function xtms-structure-address to module_1000132
+    //add function xtms-structure-address to module_1000132
     $('body').on('click', '#operation_1001383', function () {
         try {
             $('body .xtms-approve-address').attr('data-type', 'add');
@@ -1310,13 +1311,12 @@ $(function () {
         }
     });
 
-
     $('body').on('click', '.xtms-approve', function(){
         var objectForm = $('body #add_abroad_structure_form').serialize();
         var id = $(this).attr('data-id');
         var type = $(this).attr('data-type');
         if(type === 'add') {
-            Hsis.Proxy.editAbroadStructure(objectForm, function(data){
+            Hsis.Proxy.addAbroadStructure(objectForm, function(data){
                 if(data) {
                     $('body').find('#main-div .select-with-search').select2('val',' ', true);
                     $('body').find('#main-div #xtm-university').val(' ');
@@ -1333,9 +1333,6 @@ $(function () {
         }
         console.log(objectForm)
     });
-
-
-
     //approve-address
     $('body').on('click', '.xtms-approve-address', function(){
         var objectForm = $('body #add_abroad_address_form').serialize();
@@ -3562,14 +3559,12 @@ $(function () {
 
     $('body').on('click', '#operation_1000032', function () {
         try {
-
             if (!$('#buttons_div').attr('data-id')) {
                 $.notify(Hsis.dictionary[Hsis.lang]['select_information'], {
                     type: 'warning'
                 });
                 return false;
             }
-
             var id = $('.main-content-upd #buttons_div').attr('data-id');
             $('.add-new .search-scroll').load('partials/teacher_edit.html', function () {
                 Hsis.Proxy.getTeacherDetails(id, function (data) {
@@ -4165,11 +4160,11 @@ $(function () {
                 var eduLevelId = $('#main-div #edu_level').find('option:selected').val();
                 var startActionType = $('#main-div #start_action_type').find('option:selected').val();
                 var endActionType = $('#main-div #end_action_type').find('option:selected').val();
-                var eduStartDate = $('#main-div #edu-start-date').val(' ');
-                var eduEndDate = $('#main-div #edu-end-date').val(' ');
+                var eduStartDate = $('#main-div #edu-start-date').val();
+                var eduEndDate = $('#main-div #edu-end-date').val();
                 var foreignUniId = $('#foreign_university_id').find('option:selected').val();
 
-                if ((universityId == 0 && foreignUniId == 0) || (universityId > 0 && foreignUniId > 0)) {
+                if ((universityId === 0 && foreignUniId === 0) || (universityId > 0 && foreignUniId > 0)) {
                     $.alert({
                         title: Hsis.dictionary[Hsis.lang]['warning'],
                         content: Hsis.dictionary[Hsis.lang]['select_uni_or_foreign_uni'],
@@ -4177,12 +4172,11 @@ $(function () {
                     });
                     return false;
                 }
-
                 var eduLifeCycle = {};
                 eduLifeCycle.actionTypeId = startActionType;
                 eduLifeCycle.actionDate = eduStartDate;
                 eduLifeCycle.orgId = universityId;
-                eduLifeCycle.eduLevelId = eduLevelId
+                eduLifeCycle.eduLevelId = eduLevelId;
                 eduLifeCycle.endActionTypeId = endActionType;
                 eduLifeCycle.endActionDate = eduEndDate;
                 eduLifeCycle.status = 1000380;
@@ -8668,8 +8662,8 @@ $(function () {
                         work.staffTypeId = staffType;
                         work.positionId = position;
                         work.note = note;
-                        work.endActionTypeId = endAction,
-                                work.endActionDate = endDate
+                        work.endActionTypeId = endAction;
+                        work.endActionDate = endDate;
 
                         Hsis.Proxy.editTeacherWorkInfo(work, function (data) {
                             if (data) {

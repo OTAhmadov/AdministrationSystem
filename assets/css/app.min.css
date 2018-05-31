@@ -19732,7 +19732,7 @@ a.fc-more:hover {
 .content-upper-header .user-info .data {
     position: absolute;
     right: 20px;
-    top: 15px;
+    /*top: 15px;*/
 }
 
 .content-upper-header .user-info .data ul li {
@@ -19746,7 +19746,7 @@ a.fc-more:hover {
 }
 
 .content-upper-header .user-info .data ul li:first-child {
-    font-size: 11px;
+    font-size: 15px;
 }
 
 .content-upper-header .user-info .stats {
