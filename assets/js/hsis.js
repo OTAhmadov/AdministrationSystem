@@ -19,7 +19,7 @@ $(".addonJs").append(s);*/
 
 var cropForm = new FormData();
 var Hsis = {
-    // token: 'b2b35e6683f9415e927efe01c998b55c5243f0e59853443e9cdceb2f147c8237',
+    // token: 'fa5df1dab9734b52b88f986e5dfad327010d2868c20e4954a6aaa782bdf908d9',
     lang: 'az',
     appId: 1000003,
     currModule: '',
@@ -81,6 +81,8 @@ var Hsis = {
     MASK: {
         phone: '(+000)-00-000-00-00'
     },
+
+
     initToken: function (cname) {
         var name = cname + "=";
 
@@ -102,6 +104,8 @@ var Hsis = {
         }
 
     },
+
+
     initLanguageCookie: function (name) {
         var ca = document.cookie.split(';');
 
@@ -407,7 +411,6 @@ var Hsis = {
                 }
             })
         },
-
         //AJAX Request
         addAbroadStructure: function (form, callback) {
             $.ajax({
@@ -448,7 +451,6 @@ var Hsis = {
                 }
             })
         },
-
         //add
         addAbroadAddress: function (form, callback) {
             $.ajax({
@@ -2592,6 +2594,96 @@ var Hsis = {
                 }
             })
         },
+
+
+        //xtms-structure
+        loadStructure: function (page, queryParams, callback, before) {
+            $.ajax({
+                url: Hsis.urls.HSIS + 'structures/abroad?token=' + Hsis.token + (queryParams ? '&' + queryParams : '') + (page ? '&page=' + page : ''),
+                type: 'GET',
+                beforeSend: function () {
+                    if (before) {
+                        $('#main-div li.sub-module-item').attr('data-attr', 1);
+                    }
+                },
+                success: function (result) {
+                    if (result) {
+                        switch (result.code) {
+                            case Hsis.statusCodes.ERROR:
+                                $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+                                    type: 'danger'
+                                });
+                                break;
+
+                            case Hsis.statusCodes.OK:
+                                Hsis.Service.loadAbroadStructures(result.data, page);
+                                if (callback)
+                                    callback(result.data);
+                                break;
+
+                            case Hsis.statusCodes.UNAUTHORIZED:
+                                window.location = Hsis.urls.ROS + 'unauthorized';
+                                break;
+
+                        }
+
+
+                    }
+                },
+                complete: function () {
+                    $('#main-div li.sub-module-item').removeAttr('data-attr');
+                    $('.module-block[data-id="1000131"]').removeAttr('data-check');
+                }
+            })
+        },
+
+        //xtms-structure-address
+        loadAddress: function (page, queryParams, callback, before) {
+            $.ajax({
+                url: Hsis.urls.HSIS + 'structures/abroad/address?token=' + Hsis.token + (queryParams ? '&' + queryParams : '') + (page ? '&page=' + page : ''),
+                type: 'GET',
+                beforeSend: function () {
+                    if (before) {
+                        $('#main-div li.sub-module-item').attr('data-attr', 1);
+                    }
+                },
+                success: function (result) {
+                    if (result) {
+                        switch (result.code) {
+                            case Hsis.statusCodes.ERROR:
+                                $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+                                    type: 'danger'
+                                });
+                                break;
+
+                            case Hsis.statusCodes.OK:
+                                Hsis.Service.loadAbroadAddress(result.data, page);
+                                if (callback)
+                                    callback(result.data);
+                                break;
+
+                            case Hsis.statusCodes.UNAUTHORIZED:
+                                window.location = Hsis.urls.ROS + 'unauthorized';
+                                break;
+
+                        }
+
+
+                    }
+                },
+                complete: function () {
+                    $('#main-div li.sub-module-item').removeAttr('data-attr');
+                    $('.module-block[data-id="1000131"]').removeAttr('data-check');
+                }
+            })
+        },
+
+
+
+
+
+
+
         loadStaffTable: function (page, queryParams, callback, before) {
             $.ajax({
                 url: Hsis.urls.HSIS + 'teachers?statusId=1000340&token=' + Hsis.token + (queryParams ? '&' + queryParams : '') + (page ? '&page=' + page : ''),
@@ -3539,7 +3631,7 @@ var Hsis = {
 
             })
         },
-        searchTeacher: function (page, query, callback) {
+        searchTeacher: function (page, query, callback){
             $.ajax({
                 url: Hsis.urls.HSIS + 'teachers?token=' + Hsis.token + (query ? '&' + query : '') + (page ? '&page=' + page : ''),
                 type: 'GET',
@@ -3574,6 +3666,86 @@ var Hsis = {
                 },
             })
         },
+
+        //xtms-structure-search
+        searchStructure: function (page, query, callback) {
+            $.ajax({
+                url: Hsis.urls.HSIS + 'structures/abroad?token=' + Hsis.token + (query ? '&' + query : '') + (page ? '&page=' + page : ''),
+                type: 'GET',
+                success: function (result) {
+                    if (result) {
+                        switch (result.code) {
+                            case Hsis.statusCodes.OK:
+                                if (result.data) {
+                                    var div = $('.space-for-footer .flex-input');
+                                    if (div.html().trim().length == 0) {
+                                        var html = '<button  data-i18n="load.more" data-table="abroad_structure_module" class="btn loading-margins btn-load-more">' + Hsis.dictionary[Hsis.lang]['load.more'] + '</button>';
+                                        div.html(html);
+                                    }
+                                }
+                                Hsis.Service.loadAbroadStructures(result.data, page);
+                                if (callback)
+                                    callback(result.data);
+                                break;
+
+                            case Hsis.statusCodes.ERROR:
+                                $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+                                    type: 'danger'
+                                });
+
+                            case Hsis.statusCodes.UNAUTHORIZED:
+                                window.location = Hsis.urls.ROS + 'unauthorized';
+                                break;
+
+                        }
+                    }
+                },
+            })
+        },
+
+        //xtms-structure-address
+        searchAddress: function (page, query, callback) {
+            $.ajax({
+                url: Hsis.urls.HSIS + 'structures/abroad/address?token=' + Hsis.token + (query ? '&' + query : '') + (page ? '&page=' + page : ''),
+                type: 'GET',
+                success: function (result) {
+                    if (result) {
+                        switch (result.code) {
+                            case Hsis.statusCodes.OK:
+                                if (result.data) {
+                                    var div = $('.space-for-footer .flex-input');
+                                    if (div.html().trim().length == 0) {
+                                        var html = '<button  data-i18n="load.more" data-table="abroad-structure-address_module" class="btn loading-margins btn-load-more">' + Hsis.dictionary[Hsis.lang]['load.more'] + '</button>';
+                                        div.html(html);
+                                    }
+                                }
+                                Hsis.Service.loadAbroadAddress(result.data, page);
+                                if (callback)
+                                    callback(result.data);
+                                break;
+
+                            case Hsis.statusCodes.ERROR:
+                                $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+                                    type: 'danger'
+                                });
+
+                            case Hsis.statusCodes.UNAUTHORIZED:
+                                window.location = Hsis.urls.ROS + 'unauthorized';
+                                break;
+
+                        }
+                    }
+                },
+            })
+        },
+
+
+
+
+
+
+
+
         editTeacherAcademicInfo: function (acaInfo, callback) {
             var id = $('#main-div').attr('data-id');
 
@@ -7063,7 +7235,7 @@ var Hsis = {
             }
         },
 
-        //load to module_1000132
+        //parse to module_1000132
         loadAbroadAddress: function (data, page) {
             if (data) {
                 var html = '';
@@ -8434,7 +8606,6 @@ var Hsis = {
                     $('span[data-teacher-count]').html(0);
                 }
 
-
                 if (page) {
                     $('body').find('#teacher_list tbody').append(html);
 
@@ -9757,7 +9928,6 @@ var Hsis = {
             }
         }
     },
-    
      
     WebSocket: {
             
@@ -9786,7 +9956,6 @@ var Hsis = {
     },
 
 };
-
 var fileTypes = {
     IMAGE_CONTENT_TYPE: '^(' + Hsis.REGEX.IMAGE_EXPRESSION + ')$',
     FILE_CONTENT_TYPE: '^(' + Hsis.REGEX.TEXT + '|' + Hsis.REGEX.PDF + '|' + Hsis.REGEX.XLS + '|' + Hsis.REGEX.XLSX + '|' + Hsis.REGEX.DOC + '|' + Hsis.REGEX.DOCX + '|' + Hsis.REGEX.IMAGE_EXPRESSION + ')$'

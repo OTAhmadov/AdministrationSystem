@@ -98,7 +98,7 @@
                                         <iframe class="iframe-tab-1" frameborder="0"></iframe>
                                     </div>
                                     <div role="tabpanel" class="tab-pane fade" id="buzz">
-                                        <iframe class="setting" src="http://192.168.1.78:8082/Main/#/profile-edit?token=deffde827d4a49f7a671cbc05cedba093105ca4c2dd84d34a84ba1cba0066b7e" frameborder="0"></iframe>
+                                        <iframe class="setting iframeUpdate" frameborder="0"></iframe>
                                     </div>
                                 </div>
                                 <div class="data profile-data">
@@ -355,6 +355,10 @@
             var fullDate = dayOfWeekName[date.getDay()] + ', ' + date.getDate()  + ' ' + monthNames[date.getMonth()];
             $('.user-notify-content p[data-type="current-date"] span').text(fullDate);
 
+
+            window.onload = function () {
+                document.getElementById('iframe').scr = ""
+            }
 
 
         </script>

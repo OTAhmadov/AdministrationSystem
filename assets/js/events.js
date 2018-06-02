@@ -5,6 +5,9 @@
  */
 
 $(function () {
+
+    $(".iframeUpdate").attr("src","http://192.168.1.78:8082/UnibookShared/#/profile-edit?token=" + Hsis.token);
+
     var chosenLang;
 
     if (document.cookie.indexOf('lang') == -1) {
@@ -3816,6 +3819,51 @@ $(function () {
         }
     });
 
+    //Xtms teskilati struktur
+    $('.main-content-upd').on('keypress', '#xtms-structure-search', function (e) {
+        try {
+            if (e.keyCode == 13) {
+                var keyword = $('#xtms-structure-search').val();
+                if (keyword.trim().length > 2) {
+                    $('.btn-load-more').removeAttr('data-page');
+                    $('.xtms-structure-form input[name="keyWord"]').val(keyword);
+                    var queryparams = $('.main-content-upd .xtms-structure-form').serialize();
+                    Hsis.Proxy.searchStructure('', queryparams);
+                } else if (keyword.trim().length == 0) {
+                    $('.btn-load-more').removeAttr('data-page');
+                    $('.xtms-structure-form input[name="keyWord"]').val('');
+                    var params = $('.main-content-upd .xtms-structure-form').serialize();
+                    Hsis.Proxy.loadStructure('', params);
+                }
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
+    //Xtms teskilati address
+    $('.main-content-upd').on('keypress', '#xtms-address-search', function (e) {
+        try {
+            if (e.keyCode == 13) {
+                var keyword = $('#xtms-address-search').val();
+                if (keyword.trim().length > 2) {
+                    $('.btn-load-more').removeAttr('data-page');
+                    $('.xtms-address-form input[name="keyWord"]').val(keyword);
+                    var queryparams = $('.main-content-upd .xtms-address-form').serialize();
+                    Hsis.Proxy.searchAddress('', queryparams);
+                } else if (keyword.trim().length == 0) {
+                    $('.btn-load-more').removeAttr('data-page');
+                    $('.xtms-address-form input[name="keyWord"]').val('');
+                    var params = $('.main-content-upd .xtms-address-form').serialize();
+                    Hsis.Proxy.loadAddress('', params);
+                }
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    });
+
+
     $('.main-content-upd').on('keypress', '#group_search', function (e) {
         try {
             if (e.keyCode == 13) {
@@ -3827,7 +3875,7 @@ $(function () {
                 } else if (keyword.trim().length == 0) {
                     $('.btn-load-more').removeAttr('data-page');
                     Hsis.Proxy.loadAcademicGroups('', queryparams);
-                    ;
+
                 }
             }
         } catch (err) {
