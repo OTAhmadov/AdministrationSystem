@@ -121,7 +121,8 @@
 <script type="text/javascript">
     $(function () {
 
-        $('body').on('click', '.close-pelc-order', function () {
+        $('body').on('click', '.close-pelc-order', function (e) {
+            e.preventDefault();
             $('body').find('.pelc-with-without-order').css('right', '-100%');
 
         });
@@ -204,8 +205,8 @@
         });
 
         $('body').on('keypress', '#search_with_diplom', function (e) {
+            e.preventDefault();
             try {
-
                 if (e.keyCode == 13) {
                     var keyword = $('#search_with_diplom').val();
                     var orderId = $('#grad_order_with').val();

@@ -19690,8 +19690,9 @@ a.fc-more:hover {
     height: 80px;
     overflow: hidden;
     border-radius: 50%;
-    border: 1px solid grey;
+    /*border: 1px solid grey;*/
     position: absolute;
+    border-radius: 4px !important;
     top: 30px;
     left: 20px;
 }
@@ -19714,7 +19715,7 @@ a.fc-more:hover {
     right: -500px;
     width: 400px;
     height: 100vh;
-    top: 55px;
+    top: 40px;
     z-index: 999 !important;
     visibility: hidden;
     opacity: 0;

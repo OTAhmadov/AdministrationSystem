@@ -156,7 +156,8 @@
 <script type="text/javascript">
     $(function () {
 
-        $('body').on('click', '.close-pelc-order', function () {
+        $('body').on('click', '.close-pelc-order', function (e) {
+            e.preventDefault();
             $('body').find('.pelc-with-without-order').css('right', '-100%');
 
         });
@@ -350,14 +351,12 @@
         $('#main-div').on('change', '#checkAll', function (e) {
             try {
                 var checked = $(this).is(':checked');
-
                 if (checked) {
                     $('#student_list_without tbody :checkbox').prop('checked', true);
                 }
                 else {
                     $('#student_list_without tbody :checkbox').prop('checked', false);
                 }
-
             }
             catch (err) {
                 console.error(err);

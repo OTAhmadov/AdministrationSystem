@@ -30,16 +30,14 @@
     font-weight: bold;
     font-style: normal;
 }
-
-
-
 header.header-upd{
-    height: 55px;
+    height: 40px;
     background-color: #338bf8;
 }
 .logo-upd{
     display: inline-block;
-    padding: 19px 0 0 0;
+    /*padding: 19px 0 0 0;*/
+    padding: 10px 0 0 0;
 }
 .logo-upd img{
     height: 21px;
@@ -56,7 +54,8 @@ header.header-upd{
     width: 30px;
     height: 30px;
     border: solid 4px #ffffff;
-    margin: 13px 0 0 0;
+    margin: 5px 0 0 0;
+    /*margin: 13px 0 0 0;*/
     float: left
 }
 .content-upper-header .main-img img{
@@ -132,6 +131,9 @@ main.main-upd{
     margin-right: 10px;
 
 }
+.app-list li{
+    margin-right: 20px;
+}
 .app-con li a{
     font: 14px/70px 'HelveticaNeue',sans-serif;
     position: relative;
@@ -143,7 +145,7 @@ main.main-upd{
     position: absolute;
     width: 100%;
     left: 0;
-    bottom: -9px;
+    bottom: -11px;
     z-index: 2;
     height: 3px;
     background: #fff;
@@ -417,7 +419,7 @@ main.main-upd{
 
 }
 .reg.dropdown-toggle{
-    height: 32px;
+    height: 34px;
     border-radius: 24px;
     border: solid 1px #338bf8 !important;
     padding: 0 12px 0 32px;
@@ -460,8 +462,8 @@ main.main-upd{
     height: 17.5px;
 }
 .prepend-icon input{
-    width: 293px;
-    height: 38px;
+    width: 170px;
+    height: 34px;
     border-radius: 100px;
     background-color: #f3f5f9;
     padding: 0 40px 0 16px;
@@ -1808,10 +1810,10 @@ div[class$="-info"] .panel-body .add-new[data-doc-type="academic"]{
     margin-right: 0
 }
 .app-con li {
-    padding: 0 10px;
-    width: 109px;
-    height: 55px;
-    line-height: 55px;
+    /*padding: 0 10px;*/
+    /*width: 109px;*/
+    height: 40px;
+    line-height: 40px;
 }
 .app-con li a {
     font: 12px/18px 'HelveticaNeue',sans-serif;
@@ -1991,7 +1993,7 @@ form.student-search-form + div.filters-block div.btn-group .form-control + .sele
     padding-top: 4px !important;
 }
 button.filter{
-    height: 32px;
+    height: 34px;
     border-radius: 24px;
     background-color: #338bf8 !important;
     border: solid 1px #338bf8 !important;
@@ -2021,7 +2023,7 @@ input.new-search{
     display: none;
     float: right;
     width: 34px;
-    margin-top: 20px;
+    margin-top: 12px;
 }
 .hide-menu i{
     color: #fff;
@@ -2042,6 +2044,7 @@ input.new-search{
         padding: 10px 15px;
         text-align: center;
         margin-top: 10px;
+        margin-right: 0;
         width: 200px;
     }
     div.app-list.less-menu ul.app-con{
@@ -2524,6 +2527,9 @@ ul.nav-tabs{
     color: #ffffff !important;
     cursor: pointer;
     width: auto;
+}
+.left-menu{
+    top: 10px !important;
 }
 
 /*.profile-data{*/

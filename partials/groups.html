@@ -138,7 +138,8 @@
 //            $('#main-div #edu-level-list').html(html);
 //        });
 
-$('body').on('click', '.close-student-search', function(){
+$('body').on('click', '.close-student-search', function(e){
+    e.preventDefault();
     $('.add-new').css('right', '-100%');
 });
         $('[data-dismiss="modal"]').on('click', function (event) {
