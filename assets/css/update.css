@@ -110,7 +110,7 @@ main.main-upd{
     /*height: calc(100vh - 70px);*/
     background-color: #ffffff;
     height: 100vh;
-    border: solid 1px #ece9fa;
+    /*border: solid 1px #ece9fa;*/
     margin-top: 0;
 }
 .main-content-upd{
@@ -2529,7 +2529,7 @@ ul.nav-tabs{
     width: auto;
 }
 .left-menu{
-    top: 10px !important;
+    top: 0 !important;
 }
 
 /*.profile-data{*/
