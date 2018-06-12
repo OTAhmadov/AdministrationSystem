@@ -19,7 +19,7 @@ $(".addonJs").append(s);*/
 
 var cropForm = new FormData();
 var Hsis = {
-    // token: '2d60cc07d3494e329176d75357d636cc3f8214d810614f148640ab101e78ede2',
+    // token: '01c38076618246bb878bdb5fc211c3cd06c52023f51148c4a27b7c2b082164dc',
     lang: 'az',
     appId: 1000003,
     currModule: '',

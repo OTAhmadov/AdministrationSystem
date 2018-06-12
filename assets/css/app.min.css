@@ -19715,7 +19715,7 @@ a.fc-more:hover {
     right: -500px;
     width: 400px;
     height: 100vh;
-    top: 40px;
+    top: 50px;
     z-index: 999 !important;
     visibility: hidden;
     opacity: 0;
