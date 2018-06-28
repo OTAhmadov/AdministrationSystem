@@ -6830,7 +6830,7 @@ $(function () {
                         $('.add-past-edu-doc-modal').find('select option[value="0"]').prop('selected', true);
                         $('.add-past-edu-doc-modal').modal('hide');
                         var personId = $('#main-div').attr('data-id');
-                        Hsis.Proxy.getStudentDetails(personId, function (data) {
+                        Hsis.Proxy.getAbroadStudentDetails(personId, function (data) {
                             var html = '';
                             var school = 'school';
                             if (data.schoolDocuments.length > 0) {

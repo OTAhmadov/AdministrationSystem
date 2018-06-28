@@ -1585,7 +1585,7 @@
                             $modal.find('input[name="add-document-date"]').val('');
                             $modal.find('input[name="add-document-endDate"]').val('');
                             $('.add-document-modal').modal('hide');
-                            Hsis.Proxy.getStudentDetails(id, function (data) {
+                            Hsis.Proxy.getAbroadStudentDetails(id, function (data) {
                                 var html = '';
                                 var personal = 'personal';
                                 var academic = 'academic';

@@ -19,7 +19,7 @@ $(".addonJs").append(s);*/
 
 var cropForm = new FormData();
 var Hsis = {
-    // token: '97660b9379144e3b8553d7fb748fed45b7e87af2cf2548d6be635b6e5d44a1f4',
+     token: '29a6591cf31f49b5867ff15b54906ed34ff4dfa4653d4cfe9ae13671d9727dc6',
     lang: 'az',
     appId: 1000003,
     currModule: '',
@@ -9093,7 +9093,7 @@ var Hsis = {
                 Hsis.Proxy.getAbroadStudentDetails(localStorage.personId, function (data) {
                     if (data) {
                         var html = '';
-
+                        console.log(data);
                         if (data.image && data.image.path) {
                             $('body .input-file-con .new-img-con').fadeIn(1)
                             $('body .input-file-con .new-img-con img').attr('src', Hsis.urls.HSIS + 'students/image/' + data.image.path + '?token=' + Hsis.token + '&size=200x200&' + Math.random());
@@ -9103,10 +9103,10 @@ var Hsis = {
                             });
                         }
 
-                        $('#firstname').val(data.firstName).attr('disabled', 'disabled');
-                        $('#lastname').val(data.lastName).attr('disabled', 'disabled');
-                        $('#middlename').val(data.middleName).attr('disabled', 'disabled');
-                        $('#pincode').val(data.pinCode).attr('disabled', 'disabled');
+                        $('body #firstname').text(data.firstName);
+                        $('body #lastname').text(data.lastName);
+                        $('body #middlename').text(data.middleName);
+                        $('body #pincode').text(data.pinCode);
 
                         if (data.contacts.length > 0) {
                             setTimeout(function () {
@@ -9114,33 +9114,35 @@ var Hsis = {
                                 $('.contact-info .panel-body').html(Hsis.Service.parseViewStudentContact(data));
                             }, 1000);
                         }
-
+                        
                         // $('#gender').find('option[value="' + data.gender.id + '"]').attr('selected', 'selected');
                         // $('#gender').attr('disabled', 'disabled');
                         // $('#marital_status').find('option[value="' + data.maritalStatus.id + '"]').attr('selected', 'selected');
                         // $('#marital_status').attr('disabled', 'disabled');
                         // $('#military_status').find('option[value="' + data.militaryService.id + '"]').attr('selected', 'selected');
                         // $('#military_status').attr('disabled', 'disabled');
-                        $('.date-birthdate').val(data.birthDate).attr('disabled', 'disabled');
+                        $('#birthdate').text(data.birthDate);
                         // $('#main-div').attr('data-id', data.id);
                         // $('#main-div').attr('data-pelc-id', data.pelcId);
 
-                        $('#citizenship').find('option[value="' + data.citizenship.id + '"]').attr('selected', 'selected');
-                        $('#citizenship').attr('disabled', 'disabled');
-                        $('#gender').find('option[value="' + data.gender.id + '"]').attr('selected', 'selected');
-                        $('#gender').attr('disabled', 'disabled');
-                        $('#marital_status').find('option[value="' + data.maritalStatus.id + '"]').attr('selected', 'selected');
-                        $('#marital_status').attr('disabled', 'disabled');
-                        $('#social_status').find('option[value="' + data.socialStatus.id + '"]').attr('selected', 'selected');
-                        $('#social_status').attr('disabled', 'disabled');
-                        $('#orphan_degree').find('option[value="' + data.orphanDegree.id + '"]').attr('selected', 'selected');
-                        $('#orphan_degree').attr('disabled', 'disabled');
-                        $('#military_status').find('option[value="' + data.militaryService.id + '"]').attr('selected', 'selected');
-                        $('#military_status').attr('disabled', 'disabled');
-                        $('#nationality').find('option[value="' + data.nationality.id + '"]').attr('selected', 'selected');
-                        $('#nationality').attr('disabled', 'disabled');
+//                        alert('ss');
+                        $('body #citizenship').text(data.citizenship.value[Hsis.lang])
+                        $('#gender').text(data.gender.value[Hsis.lang]);
+                        
+                        $('#marital_status').text(data.maritalStatus.value[Hsis.lang]);
+                        
+                        $('#social_status').text(data.socialStatus && data.socialStatus.id ? data.socialStatus.value[Hsis.lang] : '-');
+                        
+                        $('#orphan_degree').text(data.orphanDegree && data.orphanDegree.id ? data.orphanDegree.value[Hsis.lang] : '-');
+                        
+                        $('#military_status').text(data.militaryService && data.militaryService.id ? data.militaryService.value[Hsis.lang] : '-');
+                        
+                        $('#disability_degree').text(data.disabilityDegree && data.disabilityDegree.id ? data.disabilityDegree.value[Hsis.lang] : '-');
+                        
+                        $('#nationality').text(data.nationality && data.nationality.id ? data.nationality.value[Hsis.lang] : '-');
+                        
                         $('#main-div').attr('data-id', data.id);
-                        $('#main-div').attr('data-pelc-id', data.pelcId);
+                        $('#main-div').attr('data-pelc-id', data.pelcId);   
 
 
                         var personal = 'personal';
@@ -9165,27 +9167,27 @@ var Hsis = {
                         $('#main-div .edit-student-action').parent('li').remove();
                         $('#main-div .erase-student-action').parent('li').remove();
 
-                        $('#main-div #edu_line').val(data.eduLineId.id);
-                        $('#main-div #edu_lang').val(data.eduLangId.id);
-                        $('#main-div #abroad_edu_level').val(data.eduLevel.id);
-                        $('#main-div #action_date').val(data.actionDate);
-                        $('#main-div #private_work_number').val(data.abroadNumber);
-                        $('#main-div #graduate_date').val(data.graduateDate);
-                        $('#main-div #edu-period').val(data.eduPeriod);
-                        $('#main-div #status').val(data.abroadStatus.id);
-                        $('#main-div #speciality').val(data.spec.id);
-                        $('#main-div #spec_direction').val(data.specDicrection.id);
-                        $('#main-div #note').val(data.note);
+                        $('#main-div #edu_line').text(data.eduLineId.value[Hsis.lang]);
+                        $('#main-div #edu_lang').text(data.eduLangId.value[Hsis.lang]);
+                        $('#main-div #abroad_edu_level').text(data.eduLevel.value[Hsis.lang]);
+                        $('#main-div #action_date').text(data.actionDate);
+                        $('#main-div #private_work_number').text(data.abroadNumber);
+                        $('#main-div #graduate_date').text(data.graduateDate);
+                        $('#main-div #edu-period').text(data.eduPeriod);
+                        $('#main-div #status').text(data.abroadStatus.value[Hsis.lang]);
+                        $('#main-div #speciality').text(data.spec.value[Hsis.lang]);
+                        $('#main-div #spec_direction').text(data.specDicrection.value[Hsis.lang]);
+                        $('#main-div #note').text(data.note);
 
                         Hsis.Proxy.loadAdressTypes('1000051', function (country) {
                             var html = Hsis.Service.parseDictionaryForSelect(country);
                             $('#main-div #foreign_country').html(html);
-                            $('#main-div #foreign_country').val(data.countryId);
+                            $('#main-div #foreign_country').val(data.countryId).trigger('change').attr('disabled', 'disabled');
 
                             Hsis.Proxy.loadAdressTypes(data.countryId, function (city) {
                                 var html = Hsis.Service.parseDictionaryForSelect(city);
                                 $('#main-div #foreign_city').html(html);
-                                $('#main-div #foreign_city').val(data.cityId);
+                                $('#main-div #foreign_city').val(data.cityId).trigger('change').attr('disabled', 'disabled');
 
                                 Hsis.Proxy.getStructureListByAdress(data.cityId, function (uni) {
                                     if (uni && uni.data) {
@@ -9196,7 +9198,7 @@ var Hsis = {
                                             html += '<option value = "' + v.id + '">' + v.value[Hsis.lang] + '</option>'
                                         })
                                         $('#foreign_university').html(html)
-                                        $('#foreign_university').val(data.curOrgId.id)
+                                        $('#foreign_university').val(data.curOrgId.id).trigger('change').attr('disabled', 'disabled')
 
                                     }
                                 })
