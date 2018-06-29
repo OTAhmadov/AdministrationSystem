@@ -9179,32 +9179,10 @@ var Hsis = {
                         $('#main-div #spec_direction').text(data.specDicrection.value[Hsis.lang]);
                         $('#main-div #note').text(data.note);
 
-                        Hsis.Proxy.loadAdressTypes('1000051', function (country) {
-                            var html = Hsis.Service.parseDictionaryForSelect(country);
-                            $('#main-div #foreign_country').html(html);
-                            $('#main-div #foreign_country').val(data.countryId).trigger('change').attr('disabled', 'disabled');
-
-                            Hsis.Proxy.loadAdressTypes(data.countryId, function (city) {
-                                var html = Hsis.Service.parseDictionaryForSelect(city);
-                                $('#main-div #foreign_city').html(html);
-                                $('#main-div #foreign_city').val(data.cityId).trigger('change').attr('disabled', 'disabled');
-
-                                Hsis.Proxy.getStructureListByAdress(data.cityId, function (uni) {
-                                    if (uni && uni.data) {
-                                        var html = '';
-
-                                        html = '<option value = "0">' + Hsis.dictionary[Hsis.lang]["select"] + '</option>'
-                                        $.each(uni.data, function (i, v) {
-                                            html += '<option value = "' + v.id + '">' + v.value[Hsis.lang] + '</option>'
-                                        })
-                                        $('#foreign_university').html(html)
-                                        $('#foreign_university').val(data.curOrgId.id).trigger('change').attr('disabled', 'disabled')
-
-                                    }
-                                })
-                            });
-
-                        });
+                       
+                            $('#main-div #foreign_country').text(data.countryName)
+                            $('#main-div #foreign_city').text(data.cityName)
+                            $('#main-div #foreign_university').text(data.atmName)
 
                         if (data.achievements) {
                             Hsis.Service.parseViewAbroadStudentAchievement(data.achievements)
