@@ -5199,6 +5199,7 @@ $(function () {
                 localStorage.setItem('personId', id)
             }
             window.open(window.location.href, '_blank');
+            // window.location.reload();
 
 
         } catch (err) {
@@ -5535,12 +5536,8 @@ $(function () {
                                                         })
                                                     }
 
-
-
                                                 });
                                             });
-
-
 
                                         } else if (eduLevel == 0) {
                                             $('#orgId').html('');
@@ -5884,6 +5881,7 @@ $(function () {
         $('#main-div #exportModal').attr('data-module', 'teachers')
 
     })
+
     $('#main-div').on('click', '.a-export', function () {
         try {
             var type = $(this).attr('alt');
@@ -9862,7 +9860,7 @@ $(function () {
         var form = {
             typeId: archievementType,
             note: note
-        }
+        };
         if (Hsis.Validation.validateRequiredFields("archievement-required")) {
             if (type === 'add') {
                 var html = '<div class="col-md-12 for-align archievement-item">' +
@@ -10774,12 +10772,17 @@ $(function () {
         $('.user-info').toggleClass("helloWorld");
     });
 
+    $('.circle-notif').on('click', function(){
+        $('.circle-notification').stop().toggleClass('helloCircle');
+    });
+
+
     // $(".main-img").on("click", function () {
     //     $(".user-info").removeClass("helloWorld");
     // });
 
 
-    var width = window.innerWidth;
+   /* var width = window.innerWidth;
     if(width > 1500) {
         $('.app-list').show();
     } else {
@@ -10796,7 +10799,7 @@ $(function () {
         $("body").on("click",function() {
             $('.app-list').hide();
         });
-    }
+    }*/
 });
 
 //

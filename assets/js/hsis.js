@@ -19,7 +19,7 @@ $(".addonJs").append(s);*/
 
 var cropForm = new FormData();
 var Hsis = {
-     token: '29a6591cf31f49b5867ff15b54906ed34ff4dfa4653d4cfe9ae13671d9727dc6',
+    // token: '53e8defae4a644f1943ca705c1c1ca4fe16b6ca5a6df4b7ea6363a4880288648',
     lang: 'az',
     appId: 1000003,
     currModule: '',
@@ -1096,8 +1096,38 @@ var Hsis = {
         },
 
         loadAbroadStudents: function (page, queryParams, callback, before) {
+            const fetchStudent = fetch(Hsis.urls.HSIS + 'students/abroad?token=' + Hsis.token + (queryParams ? '&' + queryParams : '') + (page ? '&page=' + page : '') + '&pageSize=30',{
+                method: 'GET'
+            });
+            fetchStudent.then((res) => {
+                if (result) {
+                    switch (result.code) {
+                        case Hsis.statusCodes.ERROR:
+                            $.notify(Hsis.dictionary[Hsis.lang]['error'], {
+                                type: 'danger'
+                            });
+                            break;
 
-            $.ajax({
+                        case Hsis.statusCodes.OK:
+                            Hsis.Service.parseAbroadStudents(result.data, page);
+                            $('body').find('.col-sm-8.data').removeClass('col-sm-8').addClass('col-sm-12');
+                            $('body').find('.col-sm-4.info').fadeOut(1).css('right', '-100%');
+                            if (callback)
+                                callback(result.data);
+                            break;
+
+                        case Hsis.statusCodes.UNAUTHORIZED:
+                            window.location = Hsis.urls.ROS + 'unauthorized';
+                            break;
+
+                    }
+                }
+            }).finally(() => {
+                $('.module-list .chekbox-con input').removeAttr('disabled');
+                $('.module-block[data-id="1000114"]').removeAttr('data-check');
+            });
+
+            /*$.ajax({
                 url: Hsis.urls.HSIS + 'students/abroad?token=' + Hsis.token + (queryParams ? '&' + queryParams : '') + (page ? '&page=' + page : ''),
                 type: 'GET',
                 beforeSend: function () {
@@ -1136,7 +1166,7 @@ var Hsis = {
                     $('.module-list .chekbox-con input').removeAttr('disabled');
                     $('.module-block[data-id="1000114"]').removeAttr('data-check');
                 }
-            })
+            })*/
         },
         getStructureListByParentId: function (id, callback) {
             $.ajax({
@@ -7270,14 +7300,21 @@ var Hsis = {
                 $.each(data, function (i, v) {
                     if (v.id == 1000001)
                         html += '<li data-toggle="tooltip" data-placement="bottom" title = "' + v.name[Hsis.lang] + '">' +
-                            '<a data-id="' + v.id + '"  href="' + v.url + '?token=' + Hsis.token + '">' + v.shortName[Hsis.lang] + '</a>' +
+                            '<a data-id="' + v.id + '"  href="' + v.url + '?token=' + Hsis.token + '">' + '<img class="subAppIcon" src="assets/img/Icons/'+v.iconPath+'.svg">'+
+
+                            '</a>' +
                             '</li>';
                 });
                 Hsis.Proxy.loadSubApplications(function (data) {
                     if (data && data.data) {
+                        // v.shortName[Hsis.lang]
                         $.each(data.data, function (i, v) {
                             html += '<li data-toggle="tooltip" data-placement="bottom" title = "' + v.name[Hsis.lang] + '">' +
-                                '<a data-id="' + v.id + '"  href="' + v.url + '?token=' + Hsis.token + '">' + v.shortName[Hsis.lang] + '</a>' +
+                                '<a data-id="' + v.id + '"  href="' + v.url + '?token=' + Hsis.token + '">' +
+
+                                '<img class="subAppIcon" src="assets/img/Icons/'+v.iconPath+'.svg">'+
+
+                                '</a>' +
                                 '</li>';
                         })
                     }
@@ -7286,13 +7323,14 @@ var Hsis = {
                     $('.app-con a[data-id="' + Hsis.appId + '"]').parent('li').addClass('active');
                     $('[data-toggle="tooltip"]').tooltip();
 
-                    var moduleListItems = $('body').find('.app-con li');
-                    console.log(moduleListItems)
+                    /*var moduleListItems = $('body').find('.app-con li');
                     if (moduleListItems.length > 5) {
                         $('body').find('div.app-list, .hide-menu').addClass('less-menu')
                     } else {
                         $('body').find('div.app-list, .hide-menu').removeClass('less-menu')
-                    }
+                    }*/
+
+
                 })
 
             }
@@ -7400,13 +7438,13 @@ var Hsis = {
                         } else if (type == '2') {
                             if ($obj) {
                                 var statusId = $obj.status ? $obj.status.id : 0;
-                                if ((v.id == 1000042 || v.id == 1000041) && statusId == 1000340) {
+                                if ((v.id == 1000042 || v.id == 1000041) && statusId == 1000340 ) {
                                     html += '';
                                 } else if ((v.id == 1000028
                                     // || v.id == 1000032
-                                ) && statusId == 1000340 && v.roleId != 1000020 && v.roleId != 1000075) {
+                                )  && statusId == 1000340 && v.roleId != 1000020 && v.roleId != 1000075 && statusId == 1000341) {
                                     html += '';
-                                } else if ((v.id == 1001311 || v.id == 1001330 || v.id == 1000171) && statusId == 1000340) {
+                                } else if ((v.id == 1001311 || v.id == 1001330 || v.id == 1000171)  && statusId == 1000340 && statusId == 1000341) {
                                     html += '';
                                 } else {
                                     html += '<li><a  id="operation_' + v.id + '" data-status = "' + statusId + '" href="#">' + v.name[Hsis.lang] + '</a></li>';
@@ -8965,6 +9003,7 @@ var Hsis = {
 
                             });
                             $('.in-action').removeClass('hidden');
+
                             if (data.status.id != 1000340) {
                                 $('.add-out-action').addClass('hidden');
                             } else {

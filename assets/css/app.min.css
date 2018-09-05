@@ -19710,13 +19710,38 @@ a.fc-more:hover {
     top: -1px;
     width: 65px;
 }
+.content-upper-header .circle-notification{
+    position: absolute;
+    right: -524px;
+    width: 400px;
+    height: 100px;
+    top: 0;
+    z-index: 999 !important;
+    visibility: hidden;
+    opacity: 0;
+    transition: ease-in-out 500ms;
+    z-index: 10;
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0px 3px 3px #cdcdcd;
+}
+
+
+.helloCircle{
+    right: 38px !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+
+
 
 .content-upper-header .user-info {
     position: absolute;
-    right: -500px;
+    right: -524px;
     width: 400px;
     height: 100vh;
-    top: 50px;
+    top: 0px;
     z-index: 999 !important;
     visibility: hidden;
     opacity: 0;
@@ -19727,10 +19752,15 @@ a.fc-more:hover {
     box-shadow: 0px 3px 3px #cdcdcd;
 }
 .helloWorld{
-    right: 0 !important;
+    right: 38px !important;
     visibility: visible !important;
     opacity: 1 !important;
 }
+
+
+
+
+
 .content-upper-header .user-info .data {
     position: absolute;
     right: 20px;
@@ -20557,6 +20587,7 @@ textarea {
 
 .dl-horizontal {
     font-size: 12px !important;
+    height: calc(100vh - 330px);
 }
 
 .dl-horizontal dd {
